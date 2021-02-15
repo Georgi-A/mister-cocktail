@@ -1,0 +1,26 @@
+<div class="container">
+  <h1 class="cocktail-name text-center mb-5"><%= @cocktail.name %></h1>
+  <div class="row justify-content-center">
+    <% if @cocktail.photo.attached? %>
+      <%= cl_image_tag @cocktail.photo.key, height: 300, width: 400, crop: :fill %>
+    <% else %>
+      <p>No image attached</p>
+    <% end %>
+  </div>
+
+  <div class="card my-3" style="width: 18rem;">
+    <div class="card-header">
+      Ingredients
+    </div>
+    <ul class="list-group list-group-flush">
+      <% @cocktail.doses.each do |dose| %>
+        <li class="list-group-item"><%= dose.description%> <%= dose.ingredient.name %> <%= link_to "Remove", dose_path(dose), method: :delete %>
+      </li><% end %>
+    </ul>
+  </div>
+
+<%= link_to "Create a new dose", new_cocktail_dose_path(@cocktail) %>
+<br>
+<%= link_to "Homepage", cocktails_path, class: "btn btn-primary" %>
+</div>
+
